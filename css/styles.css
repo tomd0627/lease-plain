@@ -70,6 +70,8 @@ html {
 body {
   background-color: var(--color-bg);
   color: var(--color-ink);
+  display: flex;
+  flex-direction: column;
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.6;
@@ -99,13 +101,6 @@ img,
 svg {
   display: block;
   max-inline-size: 100%;
-}
-
-/* Pre-size Lucide icon placeholders to prevent CLS when JS replaces <i> with <svg> */
-i[data-lucide] {
-  block-size: 1rem;
-  display: inline-block;
-  inline-size: 1rem;
 }
 
 button {
@@ -203,6 +198,7 @@ button {
    Main
    ============================================================ */
 main {
+  flex: 1;
   padding-block: 3rem;
 }
 

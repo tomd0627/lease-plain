@@ -64,7 +64,7 @@ Pre-commit hooks run automatically on staged files via Husky + lint-staged.
 
 - Vanilla HTML / CSS / JS — no framework
 - [Anthropic Claude API](https://docs.anthropic.com) via Netlify Function proxy
-- [Lucide Icons](https://lucide.dev) via CDN
+- Icons inlined as SVG (Lucide)
 - Google Fonts: Fraunces, Inter, JetBrains Mono
 
 ## Disclaimer

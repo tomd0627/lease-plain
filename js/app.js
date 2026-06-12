@@ -189,12 +189,8 @@ function handleCopy(data) {
       btn.textContent = 'Copied!';
       setTimeout(function () {
         btn.innerHTML = '';
-        var i = document.createElement('i');
-        i.setAttribute('data-lucide', 'copy');
-        i.setAttribute('aria-hidden', 'true');
-        btn.appendChild(i);
+        btn.appendChild(makeIcon('copy'));
         btn.appendChild(document.createTextNode(' Copy results'));
-        if (typeof lucide !== 'undefined') lucide.createIcons();
       }, 2000);
     });
   } else {
@@ -211,9 +207,6 @@ function handleCopy(data) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  // Init Lucide icons
-  if (typeof lucide !== 'undefined') lucide.createIcons();
-
   var form = document.getElementById('analyze-form');
   var leaseTextarea = document.getElementById('lease-text');
   var sampleBtn = document.getElementById('sample-btn');
