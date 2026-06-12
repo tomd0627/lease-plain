@@ -1,0 +1,5 @@
+# Lease Plain
+
+> AI-powered rental lease decoder. Paste your lease, get a plain-English breakdown of every clause.
+
+Lease Plain uses Claude (Anthropic) to analyze residential lease agreements and surface tenant-unfriendly terms, legal jargon, and hidden fees. It is a single-page web application with no user accounts or persistent storage.

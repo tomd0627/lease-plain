@@ -427,3 +427,16 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Project-specific
+dist/
+.env.local
+.DS_Store
+Thumbs.db
+.vscode/
+.cursor/
+.claude/
+deno.lock
+
+# Local Netlify folder
+.netlify

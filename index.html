@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Paste your rental lease and get a plain-English breakdown of every clause — flagging tenant-unfriendly terms, legal jargon, and hidden fees."
+    />
+    <meta property="og:title" content="Lease Plain — Your lease, translated into English." />
+    <meta
+      property="og:description"
+      content="AI-powered lease decoder. Know what you're signing before you sign it."
+    />
+    <meta property="og:image" content="/assets/og-image.png" />
+    <meta property="og:type" content="website" />
+    <title>Lease Plain — Your lease, translated into English.</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=optional"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=optional"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=optional"
+        rel="stylesheet"
+      />
+    </noscript>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="container">
+        <div class="logo">
+          <i data-lucide="file-text" aria-hidden="true"></i>
+          <span>Lease Plain</span>
+        </div>
+        <p class="tagline">Your lease, translated into English.</p>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <div class="container">
+        <!-- Input Panel -->
+        <section id="input-panel" class="input-panel" aria-label="Lease analysis input">
+          <div class="input-intro">
+            <h1>Know what you're signing.</h1>
+            <p class="input-intro__sub">
+              Paste your full lease below. We'll flag every clause that favors your landlord,
+              explain the legal jargon, and surface hidden fees — in plain English.
+            </p>
+          </div>
+
+          <form id="analyze-form" novalidate>
+            <div class="field">
+              <label for="lease-text">Lease text</label>
+              <div class="textarea-wrap">
+                <textarea
+                  id="lease-text"
+                  name="leaseText"
+                  rows="16"
+                  placeholder="Paste your full lease agreement here…"
+                  aria-describedby="char-counter lease-hint"
+                  spellcheck="false"
+                ></textarea>
+              </div>
+              <div class="field-footer">
+                <span id="lease-hint" class="field-hint">
+                  Paste the full text of your lease for the most accurate analysis.
+                </span>
+                <span id="char-counter" role="status" class="char-counter">0 characters</span>
+              </div>
+            </div>
+
+            <div class="optional-fields">
+              <div class="field field--inline">
+                <label for="jurisdiction"
+                  >State / Jurisdiction <span class="optional">(optional)</span></label
+                >
+                <input
+                  type="text"
+                  id="jurisdiction"
+                  name="jurisdiction"
+                  placeholder="e.g. California"
+                  autocomplete="address-level1"
+                />
+              </div>
+              <div class="field field--inline">
+                <label for="monthly-rent"
+                  >Monthly rent <span class="optional">(optional)</span></label
+                >
+                <div class="input-prefix-wrap">
+                  <span class="input-prefix" aria-hidden="true">$</span>
+                  <input
+                    type="number"
+                    id="monthly-rent"
+                    name="rent"
+                    placeholder="1500"
+                    min="0"
+                    aria-label="Monthly rent in dollars"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="analyze-btn" class="btn btn--primary">
+                <i data-lucide="search" aria-hidden="true"></i>
+                Analyze my lease
+              </button>
+              <button type="button" id="sample-btn" class="btn btn--ghost">
+                <i data-lucide="file-plus" aria-hidden="true"></i>
+                Load sample lease
+              </button>
+            </div>
+
+            <div id="validation-error" class="validation-error" hidden aria-live="polite">
+              <i data-lucide="alert-circle" aria-hidden="true"></i>
+              <span id="validation-message"></span>
+            </div>
+          </form>
+        </section>
+
+        <!-- Results Panel -->
+        <section id="results-panel" class="results-panel" aria-label="Analysis results" hidden>
+          <!-- Summary heading — focus target after analysis -->
+          <div id="results-summary" tabindex="-1" class="results-summary">
+            <div class="results-summary__score">
+              <div id="score-ring" class="score-ring" role="img" aria-label="Tenant score: loading">
+                <span class="score-ring__number" id="score-value">—</span>
+                <span class="score-ring__label">/ 10</span>
+              </div>
+              <div class="results-summary__meta">
+                <h2 id="results-heading">Lease Analysis Complete</h2>
+                <p id="results-subtitle" class="results-summary__sub"></p>
+              </div>
+            </div>
+            <div class="results-actions">
+              <button type="button" id="copy-btn" class="btn btn--ghost btn--sm">
+                <i data-lucide="copy" aria-hidden="true"></i>
+                Copy results
+              </button>
+              <button type="button" id="restart-btn" class="btn btn--ghost btn--sm">
+                <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+                Analyze another
+              </button>
+            </div>
+          </div>
+
+          <!-- Top Gotchas -->
+          <div id="top-gotchas" class="gotchas-section" hidden>
+            <h3 class="section-heading">
+              <i data-lucide="alert-triangle" aria-hidden="true"></i>
+              Top gotchas to know
+            </h3>
+            <div id="gotchas-list" class="gotchas-list"></div>
+          </div>
+
+          <!-- Clause Cards Grid -->
+          <div class="clauses-section">
+            <h3 class="section-heading">
+              <i data-lucide="layout-grid" aria-hidden="true"></i>
+              Clause-by-clause breakdown
+            </h3>
+            <div id="clause-grid" class="clause-grid" aria-busy="false"></div>
+          </div>
+
+          <!-- Hidden Fees -->
+          <div id="hidden-fees-section" class="hidden-fees-section" hidden>
+            <h3 class="section-heading">
+              <i data-lucide="receipt" aria-hidden="true"></i>
+              Hidden fees detected
+            </h3>
+            <ul id="hidden-fees-list" class="hidden-fees-list"></ul>
+          </div>
+        </section>
+
+        <!-- Loading State -->
+        <section id="loading-panel" class="loading-panel" hidden aria-label="Analyzing lease">
+          <div class="loading-header">
+            <div class="loading-spinner" aria-hidden="true"></div>
+            <p class="loading-label">Reading your lease&hellip;</p>
+          </div>
+          <div class="skeleton-grid" aria-busy="true">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        </section>
+
+        <!-- Error State -->
+        <section id="error-panel" class="error-panel" hidden aria-label="Analysis error">
+          <div class="error-content">
+            <i data-lucide="wifi-off" class="error-icon" aria-hidden="true"></i>
+            <h2>Something went wrong</h2>
+            <p id="error-message" class="error-message"></p>
+            <button type="button" id="retry-btn" class="btn btn--primary">
+              <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+              Try again
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          Lease Plain uses AI to summarize lease language. This is not legal advice. Consult a
+          licensed attorney for guidance specific to your situation.
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+    <script src="/js/renderer.js" defer></script>
+    <script src="/js/analyzer.js" defer></script>
+    <script src="/js/app.js" defer></script>
+  </body>
+</html>
